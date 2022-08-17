@@ -10,6 +10,7 @@ import logoImg from '../../public/logo.svg';
 import { Input } from '../components/ui/Input';
 import { Button } from '../components/ui/Button';
 
+import { canSSRGuest } from '../utils/canSSRGuest';
 import { AuthContext } from '../contexts/AuthContext';
 
 export default function Home() {
@@ -17,6 +18,7 @@ export default function Home() {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
   const [loading, setLoading] = useState(false);
 
   async function handleLogin(event: FormEvent) {
@@ -52,23 +54,22 @@ export default function Home() {
             <Input
               type="text"
               value={email}
-              onChange={(e) => {
-                setEmail(e.target.value);
-              }}
+              onChange={(e) => setEmail(e.target.value)}
               placeholder="Digite seu email"
             />
+
             <Input
               type="password"
               value={password}
-              onChange={(e) => {
-                setPassword(e.target.value);
-              }}
+              onChange={(e) => setPassword(e.target.value)}
               placeholder="Digite sua senha"
             />
+
             <Button type="submit" loading={loading}>
               Acessar
             </Button>
           </form>
+
           <Link href="/signup">
             <a className={styles.text}>Não possui uma conta? Cadastre-se!</a>
           </Link>
@@ -77,3 +78,9 @@ export default function Home() {
     </>
   );
 }
+
+export const getServerSideProps = canSSRGuest(async (ctx) => {
+  return {
+    props: {},
+  };
+});

@@ -61,22 +61,26 @@ export default function SignUp() {
               onChange={(e) => setName(e.target.value)}
               placeholder="Digite seu nome"
             />
+
             <Input
               type="text"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="Digite seu email"
             />
+
             <Input
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="Digite sua senha"
             />
+
             <Button type="submit" loading={loading}>
               Cadastrar
             </Button>
           </form>
+
           <Link href="/">
             <a className={styles.text}>Já possui uma conta? Faça login!</a>
           </Link>
