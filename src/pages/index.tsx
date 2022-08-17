@@ -1,4 +1,5 @@
 import { useContext, FormEvent, useState } from 'react';
+import { toast } from 'react-toastify';
 import Head from 'next/head';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -21,12 +22,21 @@ export default function Home() {
   async function handleLogin(event: FormEvent) {
     event.preventDefault();
 
+    if (email === '' || password === '') {
+      toast.warning('Preencha todos os campos!');
+      return;
+    }
+
+    setLoading(true);
+
     let data = {
       email,
       password,
     };
 
     await signIn(data);
+
+    setLoading(false);
   }
 
   return (
@@ -55,7 +65,7 @@ export default function Home() {
               }}
               placeholder="Digite sua senha"
             />
-            <Button type="submit" loading={false}>
+            <Button type="submit" loading={loading}>
               Acessar
             </Button>
           </form>
